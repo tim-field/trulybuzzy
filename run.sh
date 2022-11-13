@@ -2,8 +2,11 @@
 
 trap "pkill -P $$" SIGINT SIGTERM EXIT
 
-./look.sh &
-./listen.sh &
+# 20 minutes
+duration=${1:-1200}  
+
+./look.sh $duration &
+./listen.sh $duration &
 
 jobs -p
 

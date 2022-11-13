@@ -1,7 +1,20 @@
 #!/bin/bash
+cd "$(dirname $0"")"
+
+trap "echo Look Exited!; exit;" SIGINT SIGTERM
 
 mkdir -p ./samples/images
 
-# 5 minutes = 300 sec
+# Caputre images over this many seconds, defaults to 20 minutes
+duration=${1:-1200}
 
-fswebcam -l 300 -S 20 -p YUYV -r 2592x1944 --save ./samples/images/pic-%Y-%m-%d_%H:%M:%S.jpg
+# Take an image at this interval over the duration
+loop=$((duration<1200 ? duration : 1200))
+
+
+while [ $duration -gt 0 ] ;
+do
+	fswebcam -S 20 -p YUYV -r 2592x1944 --save ./samples/images/pic-%Y-%m-%d_%H-%M-%S.jpg
+	sleep $loop 
+	((duration -= loop))
+done;
