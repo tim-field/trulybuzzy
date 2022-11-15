@@ -11,6 +11,6 @@ duration=${1:-1200}
 
 jobs -p
 
-./upload.sh
+#./upload.sh
 
-#wait
+wait
