@@ -1,6 +1,7 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
+# also cleared in cron on reboot
 PIDFILE=./upload.pid
 
 trap "rm -f $PIDFILE; echo Uploader Exited!; exit;" SIGINT SIGTERM
@@ -37,7 +38,7 @@ fi
 # Main script ... Do work here
 
 while inotifywait -r -e modify,create,move ./samples; do
-  rsync --remove-source-files -rvzh samples tim@mohiohio.com:buzzy
+  rsync --remove-source-files -rvzhP samples tim@mohiohio.com:buzzy --log-file=upload.log
 done
 
 # End
