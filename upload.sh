@@ -37,9 +37,9 @@ fi
 
 # Main script ... Do work here
 
-while inotifywait -r -e modify,create,move ./samples; do
+#while inotifywait -r -e modify,create,move ./samples; do
   rsync --remove-source-files -rcvhP samples tim@mohiohio.com:buzzy --log-file=upload.log
-done
+#done
 
 # End
 
