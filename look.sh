@@ -18,7 +18,7 @@ do
 	fswebcam -S 20 -p YUYV -r 2592x1944 --save ./working/image-current.jpg
 	file="pic-`date +%Y-%m-%dT%H-%M-%S`.jpg"
 	mv ./working/image-current.jpg ./samples/images/$file
-	rsync --remove-source-files -vP ./samples/images/$file tim@mohiohio.com:buzzy/samples/images/$file &
+	#rsync --remove-source-files -vP ./samples/images/$file tim@mohiohio.com:buzzy/samples/images/$file &
 	sleep $loop 
 	((duration -= loop))
 done;

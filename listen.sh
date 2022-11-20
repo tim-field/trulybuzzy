@@ -22,7 +22,7 @@ do
 	file="capture-`date +%Y-%m-%dT%H-%M-%S`.opus"
 	echo $file
 	mv ./working/audio-current.opus ./samples/audio/$file
-	rsync --remove-source-files -vP ./samples/audio/$file tim@mohiohio.com:buzzy/samples/audio/$file &
+	#rsync --remove-source-files -vP ./samples/audio/$file tim@mohiohio.com:buzzy/samples/audio/$file &
 	((duration -= segment))
 done
 
