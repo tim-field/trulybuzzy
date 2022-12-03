@@ -18,7 +18,9 @@ while [ $duration -gt 0 ]; do
 	mv ./working/image-current.jpg ./samples/images/$file
 	rsync --remove-source-files -vP ./samples/images/$file tim@mohiohio.com:buzzy/samples/images/$file &
 	sleep $loop
-	((duration -= loop))
+	duration=$((duration - loop))
+	echo "completed image capture $file"
 done
 
 wait
+echo "finished look"
