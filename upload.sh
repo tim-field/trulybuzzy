@@ -1,6 +1,10 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
+echo "startup usb"
+/usr/sbin/uhubctl -l 1-1 -p 2 -a on
+sleep 90
+
 # also cleared in cron on reboot
 PIDFILE=./upload.pid
 
@@ -44,9 +48,9 @@ fi
 # End
 
 
-echo "shutdown tailscale"
-/usr/bin/tailscale down --accept-risk=lose-ssh
-sleep 30
+#echo "shutdown tailscale"
+#/usr/bin/tailscale down --accept-risk=lose-ssh
+#sleep 30
 
 echo "shutdown usb"
 sleep 2
