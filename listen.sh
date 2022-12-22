@@ -16,9 +16,8 @@ segment=$((duration < 1200 ? duration : 1200))
 
 while [ $duration -gt 0 ]; do
 	echo "duration: $duration segment:$segment"
-	arecord -r 48000 --device hw:1,0 -f S16_LE --duration $segment -t raw | opusenc --raw-chan 1 --bitrate 128 - ./working/audio-current.opus
 	file="capture-$(date +%Y-%m-%dT%H-%M-%S).opus"
-	echo $file
+	arecord -r 48000 --device hw:1,0 -f S16_LE --duration $segment -t raw | opusenc --raw-chan 1 --bitrate 128 - ./working/audio-current.opus
 	mv ./working/audio-current.opus ./samples/audio/$file
 	rsync --remove-source-files -vP ./samples/audio/$file tim@mohiohio.com:buzzy/samples/audio/$file &
 	duration=$((duration - segment))
