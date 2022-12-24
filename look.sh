@@ -13,8 +13,9 @@ duration=${1:-1200}
 loop=$((duration < 1200 ? duration : 1200))
 
 while [ $duration -gt 0 ]; do
-	fswebcam -S 20 -p YUYV -r 2048x1536 --save ./working/image-current.jpg
 	file="pic-$(date +%Y-%m-%dT%H-%M-%S).jpg"
+	fswebcam -S 20 -p YUYV -r 2048x1536 --save ./working/image-current.jpg
+	convert ./working/image-current.jpg -crop 1500x1500+0+0 -density 72 -quality 85 ./working/image-current.jpg
 	mv ./working/image-current.jpg ./samples/images/$file
 	rsync --remove-source-files -vP ./samples/images/$file tim@mohiohio.com:buzzy/samples/images/$file &
 	sleep $loop
