@@ -3,12 +3,13 @@ cd "$(dirname "$0")"
 
 trap "pkill -P $$" SIGINT SIGTERM EXIT
 
-echo "startup usb"
-/usr/sbin/uhubctl -l 1-1 -p 2 -a on
-sleep 90
-/usr/bin/tailscale up 
+# echo "startup usb"
+# /usr/sbin/uhubctl -l 1-1 -p 2 -a on
+# sleep 90
+# /usr/bin/tailscale up
+./usb-on.sh
 
-# 20 minutes
+# 20 minutes default
 duration=${1:-1200}
 
 ./look.sh $duration &
@@ -17,10 +18,12 @@ duration=${1:-1200}
 wait
 echo "jobs done"
 
-echo "shutdown tailscale"
-/usr/bin/tailscale down --accept-risk=lose-ssh
-sleep 30
+./usb-off.sh
 
-echo "shutdown usb"
-sleep 2
-/usr/sbin/uhubctl -l 1-1 -p 2 -a off
+# echo "shutdown tailscale"
+# /usr/bin/tailscale down --accept-risk=lose-ssh
+# sleep 30
+
+# echo "shutdown usb"
+# sleep 2
+# /usr/sbin/uhubctl -l 1-1 -p 2 -a off
