@@ -26,7 +26,8 @@ const usbOff = () =>
 // https://sunrise-sunset.org/api
 const getDawnDusk = async (when, lat, lng) => {
   try {
-    await usbOn()
+    const output = await usbOn()
+    console.log(output)
   } catch (e) {
     console.log('Unable to start usb')
   }
@@ -36,7 +37,8 @@ const getDawnDusk = async (when, lat, lng) => {
   )
 
   try {
-    await usbOff()
+    const output = await usbOff()
+    console.log(output)
   } catch (e) {
     console.log('Unable to switch off usb')
   }
