@@ -8,6 +8,7 @@ const usbOn = () =>
         console.error(stderr)
         return reject(error)
       }
+      console.log(stdout)
       return resolve(stdout)
     })
   )
@@ -19,29 +20,16 @@ const usbOff = () =>
         console.error(stderr)
         return reject(error)
       }
+      console.log(stdout)
       return resolve(stdout)
     })
   )
 
 // https://sunrise-sunset.org/api
 const getDawnDusk = async (when, lat, lng) => {
-  try {
-    const output = await usbOn()
-    console.log(output)
-  } catch (e) {
-    console.log('Unable to start usb')
-  }
-
   resp = await fetch(
     `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0&date=${when}`
   )
-
-  try {
-    const output = await usbOff()
-    console.log(output)
-  } catch (e) {
-    console.log('Unable to switch off usb')
-  }
 
   if (!resp.ok) {
     console.error({
@@ -97,14 +85,18 @@ const run = async (lat, lng) => {
   return [dawnJob, duskJob]
 }
 
-run().then(([dawn, dusk]) => {
-  console.log(
-    'Jobs scheduled for ',
-    dawn
-      .nextInvocation()
-      .toLocaleString('en-AU', {timeZone: 'Pacific/Auckland'}),
-    dusk
-      .nextInvocation()
-      .toLocaleString('en-AU', {timeZone: 'Pacific/Auckland'})
-  )
-})
+usbOn()
+  .catch(console.error)
+  .then(run)
+  .then(([dawn, dusk]) => {
+    console.log(
+      'Jobs scheduled for ',
+      dawn
+        .nextInvocation()
+        .toLocaleString('en-AU', {timeZone: 'Pacific/Auckland'}),
+      dusk
+        .nextInvocation()
+        .toLocaleString('en-AU', {timeZone: 'Pacific/Auckland'})
+    )
+  })
+  .then(() => usbOff().catch(console.error))
