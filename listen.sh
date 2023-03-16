@@ -11,8 +11,8 @@ mkdir -p ./working
 # Total duration, defaults to 20 minutes
 duration=${1:-1200}
 
-# duration will be split into into max 20 minute segments
-segment=$((duration < 1200 ? duration : 1200))
+# duration will be split into into max 60 minute segments
+segment=$((duration < 3600 ? duration : 3600))
 
 while [ $duration -gt 0 ]; do
 	echo "duration: $duration segment:$segment"

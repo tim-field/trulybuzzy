@@ -85,9 +85,10 @@ const run = async (lat, lng) => {
   return [dawnJob, duskJob]
 }
 
-usbOn()
-  .catch(console.error)
-  .then(run)
+//usbOn()
+//  .catch(console.error)
+// .then(run)
+run()
   .then(([dawn, dusk]) => {
     console.log(
       'Jobs scheduled for ',

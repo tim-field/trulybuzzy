@@ -10,7 +10,7 @@ mkdir -p ./samples/images
 duration=${1:-1200}
 
 # Take an image at this interval over the duration
-loop=$((duration < 1200 ? duration : 1200))
+loop=$((duration < 3600 ? duration : 3600))
 
 while [ $duration -gt 0 ]; do
 	file="pic-$(date +%Y-%m-%dT%H-%M-%S).jpg"
