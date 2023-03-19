@@ -7,7 +7,7 @@ trap "pkill -P $$" SIGINT SIGTERM EXIT
 # /usr/sbin/uhubctl -l 1-1 -p 2 -a on
 # sleep 90
 # /usr/bin/tailscale up
-./usb-on.sh
+# ./usb-on.sh
 
 # 20 minutes default
 duration=${1:-1200}
@@ -18,7 +18,7 @@ duration=${1:-1200}
 wait
 echo "jobs done"
 
-./usb-off.sh
+# ./usb-off.sh
 
 # echo "shutdown tailscale"
 # /usr/bin/tailscale down --accept-risk=lose-ssh
