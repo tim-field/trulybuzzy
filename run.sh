@@ -1,7 +1,8 @@
 #!/bin/bash
 cd "$(dirname "$0")"
-
 trap "pkill -P $$" SIGINT SIGTERM EXIT
+
+./update.sh
 
 # 20 minutes default
 duration=${1:-1200}
@@ -11,4 +12,3 @@ duration=${1:-1200}
 
 wait
 echo "jobs done"
-
