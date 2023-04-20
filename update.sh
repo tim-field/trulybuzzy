@@ -2,4 +2,4 @@
 cd "$(dirname "$0")"
 
 git pull
-crontab mycrontab.txt
+crontab ./cron.crontab
