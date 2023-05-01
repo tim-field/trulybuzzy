@@ -10,3 +10,5 @@ duration=${1:-1200}
 
 wait
 echo "jobs done"
+
+./video.sh
