@@ -11,4 +11,4 @@ trap "pkill -P $$" SIGINT SIGTERM EXIT
 git pull
 crontab ./cron.crontab
 
-./schedule $duration
+./schedule.sh $duration
