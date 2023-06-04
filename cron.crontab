@@ -3,4 +3,5 @@
 00 6 * * * /home/tim/listen/update.sh 3600
 55 6 * * * /home/tim/listen/run.sh 3600; sudo /usr/sbin/shutdown -h now
 00 15 * * * sudo /usr/sbin/shutdown -h now
+00 13 * * * sudo /usr/sbin/shutdown -h now
 
