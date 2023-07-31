@@ -8,8 +8,8 @@ duration=${1:-1200}
 
 json=$(curl -s "https://api.sunrise-sunset.org/json?lat=-45.782474&lng=170.507323&formatted=0")
 
-# sunrise=$(echo $json | jq -r '.results.civil_twilight_begin')
-sunrise=$(echo $json | jq -r '.results.nautical_twilight_begin')
+sunrise=$(echo $json | jq -r '.results.civil_twilight_begin')
+# sunrise=$(echo $json | jq -r '.results.nautical_twilight_begin')
 
 localtime=$(date -d "$sunrise" +'%Y-%m-%dT%H:%M:%S%z')
 
