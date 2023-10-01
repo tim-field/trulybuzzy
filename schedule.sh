@@ -24,5 +24,7 @@ crontab -l | grep -v "/home/tim/listen/run.sh" | crontab -
 
 (
 	crontab -l
-	echo "$minute $hour * * * /home/tim/listen/run.sh $duration; sudo /usr/sbin/shutdown -h now"
+	echo "$minute $hour * * * /home/tim/listen/run.sh $duration; sudo /usr/sbin/shutdown -h +240"
 ) | crontab -
+
+#echo "$minute $hour * * * /home/tim/listen/run.sh $duration; sudo /usr/sbin/shutdown -h now"
