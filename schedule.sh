@@ -11,13 +11,13 @@ json=$(curl -s "https://api.sunrise-sunset.org/json?lat=-45.782474&lng=170.50732
 sunrise=$(echo $json | jq -r '.results.civil_twilight_begin')
 # sunrise=$(echo $json | jq -r '.results.nautical_twilight_begin')
 
-localtime=$(date -d "$sunrise" +'%Y-%m-%dT%H:%M:%S%z')
+localtime=$(date -d "$sunrise - 15 minutes" +'%Y-%m-%dT%H:%M:%S%z')
 
 hour=$(date -d "$localtime" +'%H')
 
 minute=$(date -d "$localtime" +'%M')
 
-output=$(crontab -l | sed "/\/home\/tim\/listen\/run.sh/ s/55 6/$minute $hour/")
+echo "$minute $hour * * * /home/tim/listen/run.sh $duration; sudo /usr/sbin/shutdown -h now"
 
 # remove current line
 crontab -l | grep -v "/home/tim/listen/run.sh" | crontab -
