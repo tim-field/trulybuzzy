@@ -1,6 +1,6 @@
 # m h dom mon dow command
-45 5 * * * /home/tim/listen/upload.sh
-45 5 * * * /home/tim/listen/update.sh 3600
+15 5 * * * /home/tim/listen/upload.sh
+15 5 * * * /home/tim/listen/update.sh 3600
 00 6 * * * /home/tim/listen/run.sh 3600; sudo /usr/sbin/shutdown -h now
 00 15 * * * sudo /usr/sbin/shutdown -h now
 00 13 * * * sudo /usr/sbin/shutdown -h now
