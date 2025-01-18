@@ -1,0 +1,12 @@
+[Unit]
+Description=SSH tunnel for Raspberry Pi remote access.
+After=network-online.target
+
+[Service]
+User=tim
+ExecStart=/usr/bin/ssh -NT -o ExitOnForwardFailure=yes -o ServerAliveInterval=60 -o ServerAliveCountMax=3 -p 22 -R 2223:localhost:22 -i ~/.ssh/id_ed25519 tim@mohiohio.com
+RestartSec=5
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
