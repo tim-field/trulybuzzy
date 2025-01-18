@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 
 duration=${1:-1200}
 
-json=$(curl -s "https://api.sunrise-sunset.org/json?lat=-45.782474&lng=170.507323&formatted=0")
+json=$(curl -s "https://api.sunrise-sunset.org/json?lat=-45.769611&lng=170.607640&formatted=0")
 
 sunrise=$(echo $json | jq -r '.results.civil_twilight_begin')
 # sunrise=$(echo $json | jq -r '.results.nautical_twilight_begin')
@@ -24,5 +24,5 @@ crontab -l | grep -v "/home/tim/listen/run.sh" | crontab -
 
 (
 	crontab -l
-	echo "$minute $hour * * * /home/tim/listen/run.sh $duration; sudo /usr/sbin/shutdown -h now"
+	echo "$minute $hour * * * /home/tim/listen/run.sh $duration"
 ) | crontab -
