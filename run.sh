@@ -5,9 +5,9 @@ trap "pkill -P $$" SIGINT SIGTERM EXIT
 # 20 minutes default
 duration=${1:-1200}
 
-./look.sh $duration &
+# ./look.sh $duration &
+./watch.sh $duration &
 ./listen.sh $duration &
 
 wait
 echo "jobs done"
-
