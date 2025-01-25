@@ -1,8 +1,8 @@
-state.ALSA {
+state.Headphones {
 	control.1 {
 		iface MIXER
 		name 'PCM Playback Volume'
-		value -2000
+		value 31
 		comment {
 			access 'read write'
 			type INTEGER
@@ -10,7 +10,7 @@ state.ALSA {
 			range '-10239 - 400'
 			dbmin -9999999
 			dbmax 400
-			dbvalue.0 -2000
+			dbvalue.0 31
 		}
 	}
 	control.2 {
@@ -23,21 +23,50 @@ state.ALSA {
 			count 1
 		}
 	}
-	control.3 {
-		iface MIXER
-		name 'PCM Playback Route'
-		value 0
+}
+state.vc4hdmi {
+	control.1 {
+		iface CARD
+		name 'HDMI Jack'
+		value false
 		comment {
-			access 'read write'
-			type INTEGER
+			access read
+			type BOOLEAN
 			count 1
-			range '0 - 2'
+		}
+	}
+	control.2 {
+		iface PCM
+		name 'Playback Channel Map'
+		value.0 0
+		value.1 0
+		value.2 0
+		value.3 0
+		value.4 0
+		value.5 0
+		value.6 0
+		value.7 0
+		comment {
+			access read
+			type INTEGER
+			count 8
+			range '0 - 36'
+		}
+	}
+	control.3 {
+		iface PCM
+		name 'IEC958 Playback Mask'
+		value ffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+		comment {
+			access read
+			type IEC958
+			count 1
 		}
 	}
 	control.4 {
 		iface PCM
 		name 'IEC958 Playback Default'
-		value '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		value '0400000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
 		comment {
 			access 'read write'
 			type IEC958
@@ -46,22 +75,111 @@ state.ALSA {
 	}
 	control.5 {
 		iface PCM
-		name 'IEC958 Playback Con Mask'
-		value '0200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		name ELD
+		value '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		comment {
+			access 'read volatile'
+			type BYTES
+			count 128
+		}
+	}
+}
+state.Headset {
+	control.1 {
+		iface PCM
+		name 'Playback Channel Map'
+		value.0 0
+		value.1 0
 		comment {
 			access read
-			type IEC958
+			type INTEGER
+			count 2
+			range '0 - 36'
+		}
+	}
+	control.2 {
+		iface PCM
+		name 'Capture Channel Map'
+		value 0
+		comment {
+			access read
+			type INTEGER
+			count 1
+			range '0 - 36'
+		}
+	}
+	control.3 {
+		iface MIXER
+		name 'Mic Playback Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.4 {
+		iface MIXER
+		name 'Mic Playback Volume'
+		value 43
+		comment {
+			access 'read write'
+			type INTEGER
+			count 1
+			range '0 - 43'
+			dbmin -1400
+			dbmax 2900
+			dbvalue.0 2900
+		}
+	}
+	control.5 {
+		iface MIXER
+		name 'Headphone Playback Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
 			count 1
 		}
 	}
 	control.6 {
-		iface PCM
-		name 'IEC958 Playback PCM Stream'
-		value '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		iface MIXER
+		name 'Headphone Playback Volume'
+		value.0 42
+		value.1 42
 		comment {
-			access 'read write inactive'
-			type IEC958
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 62'
+			dbmin -6200
+			dbmax 0
+			dbvalue.0 -2000
+			dbvalue.1 -2000
+		}
+	}
+	control.7 {
+		iface MIXER
+		name 'Mic Capture Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
 			count 1
+		}
+	}
+	control.8 {
+		iface MIXER
+		name 'Mic Capture Volume'
+		value 63
+		comment {
+			access 'read write'
+			type INTEGER
+			count 1
+			range '0 - 63'
+			dbmin -1400
+			dbmax 4900
+			dbvalue.0 4900
 		}
 	}
 }
@@ -102,15 +220,15 @@ state.Device {
 	control.4 {
 		iface MIXER
 		name 'Mic Playback Volume'
-		value 31
+		value 0
 		comment {
 			access 'read write'
 			type INTEGER
 			count 1
 			range '0 - 31'
-			dbmin -2300
+			dbmin -9999999
 			dbmax 800
-			dbvalue.0 800
+			dbvalue.0 -9999999
 		}
 	}
 	control.5 {
@@ -126,17 +244,17 @@ state.Device {
 	control.6 {
 		iface MIXER
 		name 'Speaker Playback Volume'
-		value.0 17
-		value.1 17
+		value.0 0
+		value.1 0
 		comment {
 			access 'read write'
 			type INTEGER
 			count 2
 			range '0 - 37'
-			dbmin -3700
+			dbmin -9999999
 			dbmax 0
-			dbvalue.0 -2000
-			dbvalue.1 -2000
+			dbvalue.0 -9999999
+			dbvalue.1 -9999999
 		}
 	}
 	control.7 {
@@ -166,7 +284,7 @@ state.Device {
 	control.9 {
 		iface MIXER
 		name 'Auto Gain Control'
-		value true
+		value false
 		comment {
 			access 'read write'
 			type BOOLEAN
