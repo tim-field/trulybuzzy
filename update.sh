@@ -8,6 +8,9 @@ duration=${1:-1200}
 
 trap "pkill -P $$" SIGINT SIGTERM EXIT
 
+./usb-on.sh
+sleep 10
+
 rm -f ./upload.pid
 
 git pull
