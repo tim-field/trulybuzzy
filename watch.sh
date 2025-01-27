@@ -13,7 +13,7 @@ duration=1200
 sunrise=""
 
 # Parse command-line options
-while getopts "d:s" opt; do
+while getopts "d:s:" opt; do
 	case $opt in
 	d) duration=$OPTARG ;;
 	s) sunrise=$OPTARG ;;
@@ -43,10 +43,10 @@ if [ -n "$sunrise" ]; then
 	fi
 
 	current_time=$(time_to_seconds "$(date +%H:%M)")
-	target_time_seconds=$(time_to_seconds "$target_time")
+	target_time_seconds=$(time_to_seconds "$sunrise")
 
 	while [ "$current_time" -lt "$target_time_seconds" ]; do
-		echo "Current time: $(date +%H:%M), waiting until $target_time..."
+		echo "Current time: $(date +%H:%M), waiting until $sunrise..."
 		sleep 60
 		current_time=$(time_to_seconds "$(date +%H:%M)")
 	done

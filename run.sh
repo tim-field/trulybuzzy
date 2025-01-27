@@ -13,7 +13,7 @@ duration=1200
 sunrise=""
 
 # Parse command-line options
-while getopts "d:s" opt; do
+while getopts "d:s:" opt; do
 	case $opt in
 	d) duration=$OPTARG ;;
 	s) sunrise=$OPTARG ;;
@@ -36,7 +36,11 @@ fi
 # ./look.sh $duration &
 
 # 20 minutes max for watch
-./watch.sh -d $((duration < 1200 ? duration : 1200)) ${sunrise:+-s "$sunrise"} &
+if [ -n "$sunrise" ]; then
+	./watch.sh -d $((duration < 1200 ? duration : 1200)) -s "$sunrise" &
+else
+	./watch.sh -d $((duration < 1200 ? duration : 1200)) &
+fi
 
 ./listen.sh $duration &
 ./schedule.sh $duration &
