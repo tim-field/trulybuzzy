@@ -8,14 +8,17 @@ duration=${1:-1200}
 
 json=$(curl -s "https://api.sunrise-sunset.org/json?lat=-45.769611&lng=170.607640&formatted=0")
 
-sunrise=$(echo $json | jq -r '.results.civil_twilight_begin')
-# sunrise=$(echo $json | jq -r '.results.nautical_twilight_begin')
+twilight=$(echo $json | jq -r '.results.civil_twilight_begin')
+sunrise=$(echo $json | jq -r '.results.sunrise')
 
-localtime=$(date -d "$sunrise" +'%Y-%m-%dT%H:%M:%S%z')
+localStartTime=$(date -d "$twilight" +'%Y-%m-%dT%H:%M:%S%z')
 
-hour=$(date -d "$localtime" +'%H')
+startHour=$(date -d "$localStartTime" +'%H')
+startMinute=$(date -d "$localStartTime" +'%M')
 
-minute=$(date -d "$localtime" +'%M')
+localSunrise=$(date -d "$sunrise" +'%H:%M')
+sunriseHour=$(date -d "$localSunrise" +'%H')
+sunriseMinute=$(date -d "$localSunrise" +'%M')
 
 #echo "$minute $hour * * * /home/tim/listen/run.sh $duration; sudo /usr/sbin/shutdown -h now"
 
@@ -24,5 +27,5 @@ crontab -l | grep -v "/home/tim/listen/run.sh" | crontab -
 
 (
 	crontab -l
-	echo "$minute $hour * * * /home/tim/listen/run.sh $duration"
+	echo "$startMinute $startHour * * * /home/tim/listen/run.sh -d $duration -s $sunriseHour:$sunriseMinute"
 ) | crontab -
