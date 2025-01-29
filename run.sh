@@ -5,6 +5,7 @@
 cd "$(dirname "$0")"
 
 ./usb-on.sh
+sleep 10
 
 trap "pkill -P $$" SIGINT SIGTERM EXIT
 
@@ -44,11 +45,12 @@ else
 fi
 
 ./listen.sh $duration &
-./schedule.sh $duration &
 
 wait
 echo "jobs done"
 
+#should be safe to schedule again as we've waited at least duration
+# ./schedule.sh $duration &
 # ./usb-off.sh
 
 echo "shutting down"
