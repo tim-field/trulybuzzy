@@ -21,6 +21,6 @@ crontab ./cron.crontab
 
 wait
 
-./usb-off.sh
+# ./usb-off.sh
 
 echo "updated"
