@@ -34,15 +34,15 @@ if [ -n "$sunrise" ]; then
 fi
 
 ./upload.sh &
-# ./look.sh $duration &
+./look.sh $duration &
 
 # 20 minutes max for watch
-if [ -n "$sunrise" ]; then
-	echo "Running watch from $sunrise"
-	./watch.sh -d $((duration < 1200 ? duration : 1200)) -s "$sunrise" &
-else
-	./watch.sh -d $((duration < 1200 ? duration : 1200)) &
-fi
+# if [ -n "$sunrise" ]; then
+# 	echo "Running watch from $sunrise"
+# 	./watch.sh -d $((duration < 1200 ? duration : 1200)) -s "$sunrise" &
+# else
+# 	./watch.sh -d $((duration < 1200 ? duration : 1200)) &
+# fi
 
 ./listen.sh $duration &
 
